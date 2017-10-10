@@ -1,0 +1,56 @@
+---
+
+- name: Install Ambari repo.
+  get_url: url="{{ ambari_repo_url }}" dest=/etc/yum.repos.d/ambari.repo
+
+- name: Install HDP repo.
+  get_url: url="{{ hdp_repo_url }}" dest=/etc/yum.repos.d/hdp.repo
+
+- name: Install HDP util repo.
+  get_url: url="{{ hdp_util_repo_url }}" dest=/etc/yum.repos.d/hdp_util.repo
+  
+- name: Import Ambari Repo GPG key.
+  rpm_key:
+    key: "{{ ambari_repo_gpg_key_url }}"
+    state: present
+
+- name: Install createrepo
+  yum: name={{ item }} state=latest
+  with_items:
+   - createrepo
+   - yum-utils
+  
+- name: Install nginx
+  yum: name={{ item }} state=present
+  with_items:
+   - nginx
+
+- name: Nginx service state
+  service: name=nginx state=started enabled=yes
+ 
+- name : Create ambari local repo directory
+  file : dest=/usr/share/nginx/html/ambari/centos{{ centos_distribution_major_version }}/{{ ambari_repo_version }} state=directory mode=0755
+
+- name: Reposync with remote ambari repo
+  command: "{{ item }} chdir=/usr/share/nginx/html/ambari/centos{{ centos_distribution_major_version }}/"
+  with_items:
+   - reposync -r {{ ambari_repo_version }}
+   - createrepo /usr/share/nginx/html/ambari/centos{{ centos_distribution_major_version }}/{{ ambari_repo_version }}
+
+- name : Create HDP local repo directory
+  file : dest=/usr/share/nginx/html/hdp/centos{{ centos_distribution_major_version }}/{{ hdp_repo_version }}   state=directory mode=0755
+  
+- name: Reposync with remote hdp repo
+  command: "{{ item }} chdir=/usr/share/nginx/html/hdp/centos{{ centos_distribution_major_version }}/"
+  with_items:
+    - reposync -r {{ hdp_repo_version }}
+    - createrepo /usr/share/nginx/html/hdp/centos{{ centos_distribution_major_version }}/{{ hdp_repo_version }}
+
+- name : Create HDP util local repo directory
+  file : dest=/usr/share/nginx/html/hdp_utils/centos{{ centos_distribution_major_version }}//{{ hdp_utils_repo_version }} state=directory mode=0755
+  
+- name: Reposync with remote hdp-util repo
+  command: "{{ item }} chdir=/usr/share/nginx/html/hdp_utils/centos{{ centos_distribution_major_version }}/"
+  with_items: 
+   - reposync -r {{ hdp_utils_repo_version }}
+   - createrepo /usr/share/nginx/html/hdp_utils/centos{{ centos_distribution_major_version }}/{{ hdp_utils_repo_version }}

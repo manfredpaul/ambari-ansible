@@ -1,0 +1,21 @@
+# {{ ansible_managed }}
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+{# this loops over the list of groups.  inside the loop #}
+{# "group" will be the group name and "hosts" will be the #}
+{# list of hosts in that group. #}
+{% for group,hosts in groups.items() %}
+
+{# skip the "all" and "ungrouped" groups, which presumably #}
+{# you don't want in your hosts file #}
+{% if group not in ["ungrouped", "all"] %}
+
+{# generate a hosts entry for each host, using the "loop.index" #}
+{# variable and the group name to generate a unique hostname. #}
+{% for host in hosts %}
+{{hostvars[host]['ansible_ssh_host']}} {{host}}
+{% endfor %}
+
+{% endif %}
+{% endfor %}

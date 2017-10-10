@@ -1,0 +1,10 @@
+---
+
+- name: Apply common configuration to all target nodes
+  hosts: all
+  sudo: yes
+  roles:
+    - common
+
+
+
