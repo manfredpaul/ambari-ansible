@@ -109,9 +109,6 @@ Vagrant.configure("2") do |config|
       mgmt_config.proxy.no_proxy = ""
     end
 
-	mgmt_config.vm.provision "file", source: "hosts", destination: "/tmp/install/hosts"
-    mgmt_config.vm.provision "Install", type: "shell", path: "install.sh"
-    mgmt_config.vm.provision :shell, inline: "hostnamectl --static set-hostname mgmt.hdp.local"
     mgmt_config.vm.provision "ansible" do |ansible|
         ansible.inventory_path = "ansible/inventory.ini"
         ansible.verbose = "vvv"

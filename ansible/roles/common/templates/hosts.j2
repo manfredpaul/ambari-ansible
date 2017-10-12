@@ -14,7 +14,9 @@
 {# generate a hosts entry for each host, using the "loop.index" #}
 {# variable and the group name to generate a unique hostname. #}
 {% for host in hosts %}
+{% if "ansible_ssh_host" in hostvars[host] %}
 {{hostvars[host]['ansible_ssh_host']}} {{host}}
+{% endif %}
 {% endfor %}
 
 {% endif %}

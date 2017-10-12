@@ -1,0 +1,13 @@
+[{{ ambari.hdp_repo_version_name }}]
+name=HDP Version - {{ ambari.hdp_repo_version_name }}
+baseurl={{ repository.hdp_baseurl }}
+enabled=1
+priority=1
+gpgcheck=0
+
+[{{ ambari.hdp_utils_repo_version_name }}]
+name=Hortonworks Data Platform Utils Version - {{ ambari.hdp_utils_repo_version_name }}
+baseurl={{ repository.hdp_utils_baseurl }}
+enabled=1
+priority=1
+gpgcheck=0

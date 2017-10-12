@@ -1,0 +1,7 @@
+---
+
+- name: Create a local Ambari / HDP repository
+  hosts: repository
+  sudo: yes
+  roles:
+    - repository
