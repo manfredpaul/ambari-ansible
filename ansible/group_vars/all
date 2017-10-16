@@ -1,33 +1,6 @@
 ---
-domain_name: hdp.local
-java_home: /etc/alternatives/java_sdk
-
-# ambari API vars
-stack_name : HDP
-stack_version : 2.3
-
-# hdp versions
-ambari_version : 2.2.0.0
-hdp_version : 2.3.4.0
-hdp_utils_version : 1.1.0.20
-
-ambari_repo_version_name : Updates-ambari-{{ ambari_version }}
-hdp_repo_version_name : HDP-{{ hdp_version }}
-hdp_utils_repo_version_name : HDP-UTILS-{{ hdp_utils_version }}
-
-# blueprint & cluster creation
-blueprint_name : hadoop
-cluster_name : default
-
-# hadoop configuration
-default_password : hadoop
-hive_user : hive
-hive_pass : admin
 
 ambari_server: "{{ hostvars[groups['ambari'][0]]['ansible_fqdn'] }}"
 
-# Comment out these lines when using the remote repository
-hdp_baseurl : http://repo.{{ domain_name }}/hdp/centos{{ ansible_distribution_major_version }}/{{ hdp_repo_version_name }}
-hdp_utils_baseurl : http://repo.{{ domain_name }}/hdp_utils/centos{{ ansible_distribution_major_version }}/{{ hdp_utils_repo_version_name }}
-ambari_baseurl : http://repo.{{ domain_name }}/ambari/centos{{ ansible_distribution_major_version }}/{{ ambari_repo_version_name }}
+
 

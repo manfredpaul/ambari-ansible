@@ -30,28 +30,28 @@ Vagrant.configure("2") do |config|
     end	      
   end
 
-  # repository
-  config.vm.define :repository do |repository_config|
-    repository_config.vm.box = "timveil/centos6.6-hdp-base"
+  # repo
+  config.vm.define :repo do |repo_config|
+    repo_config.vm.box = "timveil/centos6.6-hdp-base"
 
-    # repository_config.vm.hostname = "repository"
-    repository_config.vm.define "repository"
-    repository_config.vm.network :private_network, ip: "192.168.7.101", hostsupdater: "skip"
-    repository_config.vm.provider "virtualbox" do |vb|
+    # repo_config.vm.hostname = "repo"
+    repo_config.vm.define "repo"
+    repo_config.vm.network :private_network, ip: "192.168.7.101", hostsupdater: "skip"
+    repo_config.vm.provider "virtualbox" do |vb|
       vb.memory = "512"
-      vb.name = "repository"
+      vb.name = "repo"
     end
 
     if Vagrant.has_plugin?("vagrant-vbguest")
-      repository_config.vbguest.auto_update = true
-      repository_config.vbguest.no_remote = true
-      repository_config.vbguest.no_install = false
+      repo_config.vbguest.auto_update = true
+      repo_config.vbguest.no_remote = true
+      repo_config.vbguest.no_install = false
     end
 
     if Vagrant.has_plugin?("vagrant-proxyconf")
-      repository_config.proxy.http     = ""
-      repository_config.proxy.https    = ""
-      repository_config.proxy.no_proxy = ""
+      repo_config.proxy.http     = ""
+      repo_config.proxy.https    = ""
+      repo_config.proxy.no_proxy = ""
     end
   end
 
