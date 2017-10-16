@@ -26,9 +26,7 @@ hive_pass : admin
 
 ambari_server: "{{ hostvars[groups['ambari'][0]]['ansible_fqdn'] }}"
 
-# local or remote
-locate : True
-
+# Comment out these lines when using the remote repository
 hdp_baseurl : http://repo.{{ domain_name }}/hdp/centos{{ ansible_distribution_major_version }}/{{ hdp_repo_version_name }}
 hdp_utils_baseurl : http://repo.{{ domain_name }}/hdp_utils/centos{{ ansible_distribution_major_version }}/{{ hdp_utils_repo_version_name }}
 ambari_baseurl : http://repo.{{ domain_name }}/ambari/centos{{ ansible_distribution_major_version }}/{{ ambari_repo_version_name }}

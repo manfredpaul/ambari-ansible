@@ -4,9 +4,9 @@ ambari_repo_version_name: Updates-ambari-{{ ambari_version }}
 ambari_repo_url: "http://public-repo-1.hortonworks.com/ambari/centos{{ ansible_distribution_major_version }}/2.x/updates/{{ ambari_version }}/ambari.repo"
 ambari_repo_gpg_key_url: "http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos{{ ansible_distribution_major_version }}/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins"
 
-hdp_utils_version: 1.1.0.20
+hdp_utils_version: 1.1.0.21
 hdp_utils_repo_version_name : HDP-UTILS-{{ hdp_utils_version }}
-hdp_utils_repo_url: "http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.21/repos/centos{{ ansible_distribution_major_version }}/hdp-util.repo"
+hdp_utils_repo_url: "http://public-repo-1.hortonworks.com/HDP-UTILS-{{ hdp_utils_version }}/repos/centos{{ ansible_distribution_major_version }}/hdp-util.repo"
 
 hdp_version: 2.3.4.0
 hdp_repo_version_name: HDP-{{ hdp_version }}
