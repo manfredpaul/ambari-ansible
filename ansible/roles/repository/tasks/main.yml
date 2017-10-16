@@ -6,6 +6,9 @@
 - name: Install HDP repo.
   get_url: url="{{ hdp_repo_url }}" dest=/etc/yum.repos.d/hdp.repo
 
+- name: Install HDP utils repo.
+  get_url: url="{{ hdp_utils_repo_url }}" dest=/etc/yum.repos.d/hdp_utils.repo
+
 - name: Import Ambari Repo GPG key.
   rpm_key:
     key: "{{ ambari_repo_gpg_key_url }}"
@@ -17,37 +20,37 @@
    - createrepo
    - yum-utils
   
-- name: Install nginx
+- name: Install httpd
   yum: name={{ item }} state=present
   with_items:
-   - nginx
+   - httpd
 
-- name: Nginx service state
-  service: name=nginx state=started enabled=yes
+- name: Httpd service state
+  service: name=httpd state=started enabled=yes
  
 - name: Create ambari local repo directory
-  file: dest=/usr/share/nginx/html/ambari/centos{{ ansible_distribution_major_version }}/{{ ambari.ambari_repo_version_name }} state=directory mode=0755
+  file: dest=/var/www/html/ambari/centos{{ ansible_distribution_major_version }}/{{ ambari_repo_version_name }} state=directory mode=0755
 
 - name: Reposync with remote ambari repo
-  command: "{{ item }} chdir=/usr/share/nginx/html/ambari/centos{{ ansible_distribution_major_version }}/"
+  command: "{{ item }}"
   with_items:
-   - reposync -r {{ ambari.ambari_repo_version_name }}
-   - createrepo /usr/share/nginx/html/ambari/centos{{ ansible_distribution_major_version }}/{{ ambari.ambari_repo_version_name }}
+   - reposync -r {{ ambari_repo_version_name }} -p /var/www/html/ambari/centos{{ ansible_distribution_major_version }}
+   - createrepo /var/www/html/ambari/centos{{ ansible_distribution_major_version }}/{{ ambari_repo_version_name }}
 
 - name: Create HDP local repo directory
-  file: dest=/usr/share/nginx/html/hdp/centos{{ ansible_distribution_major_version }}/{{ ambari.hdp_repo_version_name }} state=directory mode=0755
+  file: dest=/var/www/html/hdp/centos{{ ansible_distribution_major_version }}/{{ hdp_repo_version_name }} state=directory mode=0755
   
 - name: Reposync with remote hdp repo
-  command: "{{ item }} chdir=/usr/share/nginx/html/hdp/centos{{ ansible_distribution_major_version }}/"
+  command: "{{ item }}"
   with_items:
-    - reposync -r {{ ambari.hdp_repo_version_name }}
-    - createrepo /usr/share/nginx/html/hdp/centos{{ ansible_distribution_major_version }}/{{ ambari.hdp_repo_version_name }}
+    - reposync -r {{ hdp_repo_version_name }} -p /var/www/html/hdp/centos{{ ansible_distribution_major_version }}
+    - createrepo /var/www/html/hdp/centos{{ ansible_distribution_major_version }}/{{ hdp_repo_version_name }}
 
 - name: Create HDP util local repo directory
-  file: dest=/usr/share/nginx/html/hdp_utils/centos{{ ansible_distribution_major_version }}//{{ ambari.hdp_utils_repo_version_name }} state=directory mode=0755
+  file: dest=/var/www/html/hdp_utils/centos{{ ansible_distribution_major_version }}//{{ hdp_utils_repo_version_name }} state=directory mode=0755
   
 - name: Reposync with remote hdp-util repo
-  command: "{{ item }} chdir=/usr/share/nginx/html/hdp_utils/centos{{ ansible_distribution_major_version }}/"
-  with_items: 
-   - reposync -r {{ ambari.hdp_utils_repo_version_name }}
-   - createrepo /usr/share/nginx/html/hdp_utils/centos{{ ansible_distribution_major_version }}/{{ ambari.hdp_utils_repo_version_name }}
+  command: "{{ item }}"
+  with_items:
+   - reposync -r {{ hdp_utils_repo_version_name }} -p /var/www/html/hdp_utils/centos{{ ansible_distribution_major_version }}
+   - createrepo /var/www/html/hdp_utils/centos{{ ansible_distribution_major_version }}/{{ hdp_utils_repo_version_name }}

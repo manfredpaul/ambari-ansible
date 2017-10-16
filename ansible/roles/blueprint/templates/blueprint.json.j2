@@ -1,0 +1,71 @@
+
+{
+    "configurations": [
+        {
+            "hdfs-site": {
+                "properties": {
+                    "dfs.replication": "1"
+                }
+            }
+        },
+        {
+            "core-site" : {
+                "properties" : {
+                    "hadoop.proxyuser.root.groups" : "*",
+                    "hadoop.proxyuser.root.hosts" : "*"
+                }
+            }
+        },
+        {
+            "hadoop-env": {
+                "properties": {
+                    "namenode_heapsize": "1536m"
+                }
+            }
+        },
+		{
+			"capacity-scheduler" : {
+				"properties" : {
+					"yarn.scheduler.capacity.root.accessible-node-labels.default.capacity" : "100",
+					"yarn.scheduler.capacity.root.accessible-node-labels.default.maximum-capacity" : "100",
+				}
+			}
+        }
+    ],
+    "host_groups": [
+        {
+            "name": "host_group_1",
+            "configurations": [],
+            "cardinality": "1",
+            "components": [
+				{ "name" : "ZOOKEEPER_SERVER" },
+				{ "name" : "ZOOKEEPER_CLIENT" },
+				{ "name" : "HISTORYSERVER" },
+				{ "name" : "HBASE_REGIONSERVER" },
+				{ "name" : "HBASE_CLIENT" },
+				{ "name" : "STORM_UI_SERVER" },
+				{ "name" : "HBASE_MASTER" },
+				{ "name" : "NAMENODE" },
+				{ "name" : "SUPERVISOR" },
+				{ "name" : "SECONDARY_NAMENODE" },
+				{ "name" : "TEZ_CLIENT" },
+				{ "name" : "AMBARI_SERVER" },
+				{ "name" : "APP_TIMELINE_SERVER" },
+				{ "name" : "NODEMANAGER" },
+				{ "name" : "HDFS_CLIENT" },
+				{ "name" : "YARN_CLIENT" },
+				{ "name" : "FLUME_HANDLER" },
+				{ "name" : "MAPREDUCE2_CLIENT" },
+				{ "name" : "DATANODE" },
+				{ "name" : "RESOURCEMANAGER" },
+				{ "name" : "DRPC_SERVER" },
+				{ "name" : "NIMBUS" }
+            ]
+        }
+    ],
+    "Blueprints": {
+        "blueprint_name": "{{ blueprint_name }}",
+        "stack_name": "{{ stack_name }}",
+        "stack_version": "{{ stack_version }}"
+    }
+}

@@ -1,0 +1,60 @@
+---
+  - name : Copy stack definition
+    template: src=blueprint.json.j2 dest=/tmp/blueprint.json
+
+  - name : Copy cluster definition
+    template : src=create-cluster.json.j2 dest=/tmp/create-cluster.json
+
+  - name : Copy HDP repo definition
+    template : src=create-hdp-repo.json.j2 dest=/tmp/create-hdp-repo.json
+
+  - name : Copy HDP Utils definition
+    template : src=create-hdp-utils-repo.json.j2 dest=/tmp/create-hdp-utils-repo.json
+
+  - name: POST stack definition
+    uri:
+      url: http://admin.{{ cluster_name }}:8080/api/v1/blueprints/{{ blueprint_name }}
+      method: POST
+      user: admin
+      password: admin
+      body: "{{ lookup('file','/tmp/blueprint.json') }}"
+      header: "X-Requested-By: ambari"
+      force_basic_auth: yes
+      status_code: 200
+      body_format: json
+
+  - name: PUT HDP repo definition
+    uri:
+      url: http://admin.{{ cluster_name }}:8080/api/v1/stacks/HDP/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{ hdp_repo_version_name }}
+      method: PUT
+      user: admin
+      password: admin
+      body: "{{ lookup('file','/tmp/create-hdp-repo.json') }}"
+      header: "X-Requested-By: ambari"
+      force_basic_auth: yes
+      status_code: 200
+      body_format: json
+
+  - name: PUT HDP Utils repo definition
+    uri:
+      url: http://admin.{{ cluster_name }}:8080/api/v1/stacks/HDP/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{ hdp_utils_repo_version_name }}
+      method: POST
+      user: admin
+      password: admin
+      body: "{{ lookup('file','/tmp/create-hdp-utils-repo.json') }}"
+      header: "X-Requested-By: ambari"
+      force_basic_auth: yes
+      status_code: 200
+      body_format: json
+
+  - name: POST cluster definition
+    uri:
+      url: http://admin.{{ cluster_name }}:8080/api/v1/clusters/{{ cluster_name }}
+      method: POST
+      user: admin
+      password: admin
+      body: "{{ lookup('file','/tmp/create-cluster.json') }}"
+      header: "X-Requested-By: ambari"
+      force_basic_auth: yes
+      status_code: 200
+      body_format: json

@@ -15,7 +15,7 @@
 {# variable and the group name to generate a unique hostname. #}
 {% for host in hosts %}
 {% if "ansible_ssh_host" in hostvars[host] %}
-{{hostvars[host]['ansible_ssh_host']}} {{host}}
+{{ hostvars[host]['ansible_ssh_host'] }} {{ host }}.{{ domain_name }} {{ host }}
 {% endif %}
 {% endfor %}
 

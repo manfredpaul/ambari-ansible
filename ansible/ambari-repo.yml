@@ -1,0 +1,10 @@
+---
+
+- name: Installation Ambari
+  hosts: admin.hdp.local
+  sudo: yes
+  roles:
+    - ambari-repo
+
+
+
