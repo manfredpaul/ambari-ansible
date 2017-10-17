@@ -1,10 +1,8 @@
 ---
 
 - name: Installation Ambari Agent
-  hosts: admin.hdp.local
+  hosts: all:!repo:!mgmt
   sudo: yes
   roles:
     - ambari-agent
-
-
 

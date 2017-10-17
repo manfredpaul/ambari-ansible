@@ -1,7 +1,7 @@
 ---
 
 - name: Installation Ambari Server
-  hosts: admin.hdp.local
+  hosts: admin
   sudo: yes
   roles:
     - ambari-server

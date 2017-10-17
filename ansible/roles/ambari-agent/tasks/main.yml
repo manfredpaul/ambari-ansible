@@ -2,10 +2,10 @@
 - name: Install ambari-agent
   yum: name=ambari-agent state=latest
 
-- name: Configure ambari-server hostname in ambari-agent configuration
+- name: Configure ambari-agent hostname in ambari-agent configuration
   lineinfile: dest=/etc/ambari-agent/conf/ambari-agent.ini regexp=^.*hostname=.*$ line=hostname={{ item }} backup=yes
   with_items:
-    - "{{ inventory_hostname }}.{{ cluster_name }}"
+    - "{{ ambari_server }}"
 
 - name: Ensure ambari-agent is running and enabled
   service: name=ambari-agent state=restarted enabled=yes

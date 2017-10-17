@@ -1,0 +1,7 @@
+---
+
+- name: Create a local cluster via blueprint
+  hosts: admin
+  sudo: yes
+  roles:
+    - blueprint
