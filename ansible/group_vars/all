@@ -1,6 +1,6 @@
 ---
 
 ambari_server: "{{ hostvars[groups['ambari'][0]]['ansible_fqdn'] }}"
-
+kerberos_server: "{{ hostvars[groups['ambari'][0]]['ansible_fqdn'] }}"
 
 

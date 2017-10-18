@@ -1,0 +1,10 @@
+---
+
+kerberos_server_realm_name: HDP.LOCAL
+kerberos_server_kdc_port: 88
+kerberos_server_master_db_pass: admin
+kerberos_server_kadmin_pass: admin
+kerberos_server_kadmin_user: admin
+
+
+

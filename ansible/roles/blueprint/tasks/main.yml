@@ -1,30 +1,31 @@
 ---
   - name : Copy stack definition
-    template: src=blueprint.json.j2 dest=/tmp/blueprint.json
+    template: src={{ cluster_type }}/blueprint.json.j2 dest=/tmp/blueprint.json
 
   - name : Copy cluster definition
-    template: src=create-cluster.json.j2 dest=/tmp/create-cluster.json
+    template: src={{ cluster_type }}/cluster.json.j2 dest=/tmp/cluster.json
 
   - name : Copy HDP repo definition
-    template: src=create-hdp-repo.json.j2 dest=/tmp/create-hdp-repo.json
+    template: src=repo/hdp-repo.json.j2 dest=/tmp/hdp-repo.json
+    when: "{{ local_repo }}"
 
   - name : Copy HDP Utils definition
-    template: src=create-hdp-utils-repo.json.j2 dest=/tmp/create-hdp-utils-repo.json
+    template: src=repo/hdp-utils-repo.json.j2 dest=/tmp/hdp-utils-repo.json
+    when: "{{ local_repo }}"
 
   - name: POST stack definition
-    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X POST -d '@/tmp/blueprint.json' -u admin:admin http://admin:8080/api/v1/blueprints/{{ blueprint_name }}"
+    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X POST -d '@/tmp/blueprint.json' -u admin:admin http://{{ ambari_server }}:8080/api/v1/blueprints/{{ blueprint_name }}"
 
   - name: PUT HDP repo definition
-    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X PUT -d '@/tmp/create-hdp-repo.json' -u admin:admin  http://admin:8080/api/v1/stacks/{{ stack_name }}/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{ hdp_repo_version_name }}"
-    when: False
+    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X PUT -d '@/tmp/hdp-repo.json' -u admin:admin  http://{{ ambari_server }}:8080/api/v1/stacks/{{ stack_name }}/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{ hdp_repo_version_name }}"
+    when: "{{ local_repo }}"
 
   - name: PUT HDP Utils repo definition
-    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X PUT -d '@/tmp/create-hdp-utils-repo.json' -u admin:admin  http://admin:8080/api/v1/stacks/{{ stack_name }}/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{ hdp_utils_repo_version_name }}"
-    when: False
+    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X PUT -d '@/tmp/hdp-utils-repo.json' -u admin:admin  http://{{ ambari_server }}:8080/api/v1/stacks/{{ stack_name }}/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{ hdp_utils_repo_version_name }}"
+    when: "{{ local_repo }}"
 
   - name: POST cluster definition
-    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X POST -d '@/tmp/create-cluster.json' -u admin:admin http://admin:8080/api/v1/clusters/{{ cluster_name }}"
-    register: output
+    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X POST -d '@/tmp/cluster.json' -u admin:admin http://{{ ambari_server }}:8080/api/v1/clusters/{{ cluster_name }}"
 
 #  - name: POST stack definition
 #    uri:

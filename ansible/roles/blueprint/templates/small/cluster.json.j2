@@ -1,0 +1,41 @@
+{
+  "blueprint": "{{ blueprint_name }}",
+  "default_password": "{{ default_password }}",
+  "provision_action" : "INSTALL_ONLY"
+  "host_groups": [
+    {
+      "name": "host_group_1",
+      "hosts": [
+        {
+          "fqdn": "nn1.hdp.local"
+        }
+      ]
+    },
+    {
+      "name": "host_group_2",
+      "hosts": [
+        {
+          "fqdn": "nn2.hdp.local"
+        }
+      ]
+    },
+    {
+      "name": "host_group_3",
+      "hosts": [
+        {
+          "fqdn": "dn1.hdp.local",
+          "fqdn": "dn2.hdp.local",
+          "fqdn": "dn3.hdp.local"
+        }
+      ]
+    },
+    {
+      "name": "host_group_4",
+      "hosts": [
+        {
+
+        }
+      ]
+    }
+  ]
+}

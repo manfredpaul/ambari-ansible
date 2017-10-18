@@ -1,0 +1,140 @@
+{
+  "configurations": [
+    {
+      "hdfs-site": {
+        "properties": {
+          "dfs.replication": "1"
+        }
+      }
+    },
+    {
+      "core-site": {
+        "properties": {
+          "hadoop.proxyuser.root.groups": "*",
+          "hadoop.proxyuser.root.hosts": "*"
+        }
+      }
+    },
+    {
+      "hadoop-env": {
+        "properties": {
+          "namenode_heapsize": "1536m"
+        }
+      }
+    },
+    {
+      "capacity-scheduler": {
+        "properties": {
+          "yarn.scheduler.capacity.root.accessible-node-labels.default.capacity": "100",
+          "yarn.scheduler.capacity.root.accessible-node-labels.default.maximum-capacity": "100"
+        }
+      }
+    }
+  ],
+  "host_groups": [
+    {
+      "name": "host_group_1",
+      "configurations": [],
+      "components": [
+        { "name": "ZOOKEEPER_CLIENT" },
+        { "name": "PIG" },
+        { "name": "HBASE_CLIENT" },
+        { "name": "KERBEROS_CLIENT" },
+        { "name": "HBASE_MASTER" },
+        { "name": "HIVE_SERVER" },
+        { "name": "NAMENODE" },
+        { "name": "HCAT" },
+        { "name": "METRICS_MONITOR" },
+        { "name": "TEZ_CLIENT" },
+        { "name": "ZKFC" },
+        { "name": "HIVE_METASTORE" },
+        { "name": "SQOOP" },
+        { "name": "HDFS_CLIENT" },
+        { "name": "HIVE_CLIENT" },
+        { "name": "YARN_CLIENT" },
+        { "name": "MAPREDUCE2_CLIENT" },
+        { "name": "WEBHCAT_SERVER" }
+      ],
+      "cardinality": "1"
+    },
+    {
+      "name": "host_group_2",
+      "configurations": [],
+      "components": [
+        { "name": "ZOOKEEPER_CLIENT" },
+        { "name": "PIG" },
+        { "name": "HISTORYSERVER" },
+        { "name": "HBASE_CLIENT" },
+        { "name": "KERBEROS_CLIENT" },
+        { "name": "STORM_UI_SERVER" },
+        { "name": "HBASE_MASTER" },
+        { "name": "NAMENODE" },
+        { "name": "HCAT" },
+        { "name": "METRICS_MONITOR" },
+        { "name": "TEZ_CLIENT" },
+        { "name": "ZKFC" },
+        { "name": "APP_TIMELINE_SERVER" },
+        { "name": "SQOOP" },
+        { "name": "HDFS_CLIENT" },
+        { "name": "HIVE_CLIENT" },
+        { "name": "YARN_CLIENT" },
+        { "name": "MAPREDUCE2_CLIENT" },
+        { "name": "RESOURCEMANAGER" },
+        { "name": "NIMBUS" },
+        { "name": "DRPC_SERVER" }
+      ],
+      "cardinality": "1"
+    },
+    {
+      "name": "host_group_3",
+      "configurations": [],
+      "components": [
+        { "name": "ZOOKEEPER_SERVER" },
+        { "name": "ZOOKEEPER_CLIENT" },
+        { "name": "PIG" },
+        { "name": "HBASE_REGIONSERVER" },
+        { "name": "HBASE_CLIENT" },
+        { "name": "KERBEROS_CLIENT" },
+        { "name": "SUPERVISOR" },
+        { "name": "HCAT" },
+        { "name": "METRICS_MONITOR" },
+        { "name": "TEZ_CLIENT" },
+        { "name": "JOURNALNODE" },
+        { "name": "SQOOP" },
+        { "name": "HDFS_CLIENT" },
+        { "name": "HIVE_CLIENT" },
+        { "name": "NODEMANAGER" },
+        { "name": "YARN_CLIENT" },
+        { "name": "MAPREDUCE2_CLIENT" },
+        { "name": "DATANODE" }
+      ],
+      "cardinality": "3"
+    },
+    {
+      "name": "host_group_4",
+      "configurations": [],
+      "components": [
+        { "name": "ZOOKEEPER_CLIENT" },
+        { "name": "PIG" },
+        { "name": "HBASE_CLIENT" },
+        { "name": "KERBEROS_CLIENT" },
+        { "name": "HCAT" },
+        { "name": "METRICS_MONITOR" },
+        { "name": "TEZ_CLIENT" },
+        { "name": "AMBARI_SERVER" },
+        { "name": "SQOOP" },
+        { "name": "HDFS_CLIENT" },
+        { "name": "HIVE_CLIENT" },
+        { "name": "YARN_CLIENT" },
+        { "name": "METRICS_COLLECTOR" },
+        { "name": "MAPREDUCE2_CLIENT" }
+      ],
+      "cardinality": "1"
+    }
+  ],
+  "Blueprints": {
+    "blueprint_name": "{{ blueprint_name }}",
+    "stack_name": "{{ stack_name }}",
+    "stack_version": "{{ stack_version }}"
+  }
+}

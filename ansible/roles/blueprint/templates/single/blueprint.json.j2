@@ -1,0 +1,121 @@
+{
+    "configurations": [
+        {
+            "hdfs-site": {
+                "properties": {
+                    "dfs.replication": "1"
+                }
+            }
+        },
+        {
+            "core-site" : {
+                "properties" : {
+                    "hadoop.proxyuser.root.groups" : "*",
+                    "hadoop.proxyuser.root.hosts" : "*",
+                    "hadoop.proxyuser.ambari-server-{{ cluster_name }}.groups" : "*",
+                    "hadoop.proxyuser.ambari-server-{{ cluster_name }}.hosts" : "*"
+                }
+            }
+        },
+        {
+            "hive-site" : {
+                "properties" : {
+                    "hive.server2.transport.mode" : "binary"
+                }
+            }
+        },
+        {
+            "hadoop-env": {
+                "properties": {
+                    "namenode_heapsize": "1536m"
+                }
+            }
+        },
+		{
+			"capacity-scheduler" : {
+				"properties" : {
+					"yarn.scheduler.capacity.root.accessible-node-labels.default.capacity" : "100",
+					"yarn.scheduler.capacity.root.accessible-node-labels.default.maximum-capacity" : "100"
+				}
+			}
+        },
+        {
+            "kerberos-env": {
+                "properties" : {
+                    "realm" : "{{ kerberos_server_realm_name }}",
+                    "kdc_type" : "mit-kdc",
+                    "kdc_host" : "{{ kerberos_server }}",
+                    "ldap_url" : "",
+                    "container_dn" : "",
+                    "create_attributes_template": "",
+                    "encryption_types" : "aes des3-cbc-sha1 rc4 des-cbc-md5",
+                    "admin_server_host" : "{{ kerberos_server }}"
+                }
+            }
+        },
+        {
+            "krb5-conf": {
+                "properties" : {
+                    "domains" : "{{ kerberos_server_realm_name|lower() }}, .{{ kerberos_server_realm_name|lower() }}",
+                    "manage_krb5_conf" : "true"
+                }
+            }
+        }
+    ],
+    "host_groups": [
+        {
+            "name": "host_group_1",
+            "configurations": [],
+            "cardinality": "1",
+            "components": [
+				{ "name" : "AMBARI_SERVER" },
+
+				{ "name" : "ZOOKEEPER_SERVER" },
+				{ "name" : "ZOOKEEPER_CLIENT" },
+
+                { "name" : "ZKFC" },
+				{ "name" : "NAMENODE" },
+				{ "name" : "DATANODE" },
+				{ "name" : "SECONDARY_NAMENODE" },
+
+				{ "name" : "HISTORYSERVER" },
+				{ "name" : "RESOURCEMANAGER" },
+				{ "name" : "NODEMANAGER" },
+				{ "name" : "APP_TIMELINE_SERVER" },
+
+                { "name" : "HCAT" },
+				{ "name" : "HBASE_REGIONSERVER" },
+				{ "name" : "HBASE_CLIENT" },
+				{ "name" : "HBASE_MASTER" },
+
+				{ "name" : "FLUME_HANDLER" },
+
+				{ "name" : "TEZ_CLIENT" },
+				{ "name" : "HDFS_CLIENT" },
+				{ "name" : "YARN_CLIENT" },
+				{ "name" : "MAPREDUCE2_CLIENT" },
+
+				{ "name" : "DRPC_SERVER" },
+				{ "name" : "SUPERVISOR" },
+				{ "name" : "STORM_UI_SERVER" },
+				{ "name" : "NIMBUS" },
+
+                { "name" : "HIVE_CLIENT" },
+                { "name" : "HIVE_METASTORE" },
+                { "name" : "HIVE_SERVER" },
+                { "name" : "WEBHCAT_SERVER" },
+
+                { "name" : "PIG" },
+                { "name" : "SQOOP" },
+
+                { "name" : "KERBEROS" },
+                { "name" : "KERBEROS_CLIENT" }
+            ]
+        }
+    ],
+    "Blueprints": {
+        "blueprint_name": "{{ blueprint_name }}",
+        "stack_name": "{{ stack_name }}",
+        "stack_version": "{{ stack_version }}"
+    }
+}

@@ -1,5 +1,7 @@
 ---
 
+ambari_server: admin
+
 # ambari API vars
 stack_name: HDP
 stack_version: 2.2
@@ -11,6 +13,13 @@ hdp_utils_version: 1.1.0.20
 # blueprint & cluster creation
 blueprint_name: hadoop
 cluster_name: default
+cluster_type: single
+
+# kerberos
+kerberos_server_realm_name: HDP.LOCAL
+kerberos_server_kadmin_pass: admin
+kerberos_server_kadmin_user: admin
+kerberos_server: admin
 
 # hadoop configuration
 default_password: hadoop
