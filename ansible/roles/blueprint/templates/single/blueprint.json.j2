@@ -47,7 +47,7 @@
                     "kdc_host" : "{{ kerberos_server }}",
                     "ldap_url" : "",
                     "container_dn" : "",
-                    "create_attributes_template": "",
+                    "create_attributes_template": "{}",
                     "encryption_types" : "aes des3-cbc-sha1 rc4 des-cbc-md5",
                     "admin_server_host" : "{{ kerberos_server }}"
                 }
@@ -108,7 +108,6 @@
                 { "name" : "PIG" },
                 { "name" : "SQOOP" },
 
-                { "name" : "KERBEROS" },
                 { "name" : "KERBEROS_CLIENT" }
             ]
         }
