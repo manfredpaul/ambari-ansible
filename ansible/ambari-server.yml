@@ -2,7 +2,7 @@
 
 - name: Installation Ambari Server
   hosts: admin
-  sudo: yes
+  become: true
   roles:
     - ambari-server
 

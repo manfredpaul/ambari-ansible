@@ -2,7 +2,7 @@
 
 - name: Installation Ambari
   hosts: all:!repo:!mgmt
-  sudo: yes
+  become: true
   roles:
     - ambari-repo
 

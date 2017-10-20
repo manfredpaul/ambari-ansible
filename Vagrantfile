@@ -53,6 +53,8 @@ Vagrant.configure("2") do |config|
       repo_config.proxy.https    = ""
       repo_config.proxy.no_proxy = ""
     end
+
+    repo_config.vm.synced_folder "C:\\dev\\repo", "/var/www/html"
   end
 
   # namenode 1 - 2
@@ -133,5 +135,7 @@ Vagrant.configure("2") do |config|
       mgmt_config.proxy.https    = ""
       mgmt_config.proxy.no_proxy = ""
     end
+
+    mgmt_config.vm.provision "Install", type: "shell", path: "install.sh"
   end
 end

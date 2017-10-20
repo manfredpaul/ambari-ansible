@@ -1,4 +1,4 @@
 ---
-domain_name: "hdp.local"
+domain_name: hdp.local
 java_home: /etc/alternatives/java_sdk
 

@@ -7,22 +7,18 @@
 
   - name : Copy HDP repo definition
     template: src=repo/hdp-repo.json.j2 dest=/tmp/hdp-repo.json
-    when: "{{ local_repo }}"
 
   - name : Copy HDP Utils definition
     template: src=repo/hdp-utils-repo.json.j2 dest=/tmp/hdp-utils-repo.json
-    when: "{{ local_repo }}"
 
   - name: POST stack definition
     command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X POST -d '@/tmp/blueprint.json' -u admin:admin http://{{ ambari_server }}:8080/api/v1/blueprints/{{ blueprint_name }}"
 
   - name: PUT HDP repo definition
-    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X PUT -d '@/tmp/hdp-repo.json' -u admin:admin  http://{{ ambari_server }}:8080/api/v1/stacks/{{ stack_name }}/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{ hdp_repo_version_name }}"
-    when: "{{ local_repo }}"
+    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X PUT -d '@/tmp/hdp-repo.json' -u admin:admin  http://{{ ambari_server }}:8080/api/v1/stacks/{{ stack_name }}/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{hdp_repo_name }}"
 
   - name: PUT HDP Utils repo definition
-    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X PUT -d '@/tmp/hdp-utils-repo.json' -u admin:admin  http://{{ ambari_server }}:8080/api/v1/stacks/{{ stack_name }}/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{ hdp_utils_repo_version_name }}"
-    when: "{{ local_repo }}"
+    command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X PUT -d '@/tmp/hdp-utils-repo.json' -u admin:admin  http://{{ ambari_server }}:8080/api/v1/stacks/{{ stack_name }}/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{ hdp_utils_repo_name }}"
 
   - name: POST cluster definition
     command: "curl --silent --show-error -H \"X-Requested-By: ambari\" -X POST -d '@/tmp/cluster.json' -u admin:admin http://{{ ambari_server }}:8080/api/v1/clusters/{{ cluster_name }}"

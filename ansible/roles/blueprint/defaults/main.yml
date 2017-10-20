@@ -24,14 +24,9 @@ kerberos_server: admin
 # hadoop configuration
 default_password: hadoop
 
-hdp_repo_version_name: HDP-{{ hdp_version }}
-hdp_utils_repo_version_name : HDP-UTILS-{{ hdp_utils_version }}
+hdp_repo_name: "{{ stack_name }}-{{ stack_version }}"
+hdp_utils_repo_name : "HDP-UTILS-{{ hdp_utils_version }}"
 
-hdp_baseurl: http://public-repo-1.hortonworks.com/HDP/centos{{ ansible_distribution_major_version }}/2.x/updates/{{ hdp_version }}/
-hdp_utils_baseurl: http://public-repo-1.hortonworks.com/HDP-UTILS-{{ hdp_utils_version }}/repos/centos{{ ansible_distribution_major_version }}/
-
-local_repo: False
-
-#hdp_baseurl: http://repo.{{ domain_name }}/hdp/centos{{ ansible_distribution_major_version }}/HDP-{{ hdp_version }}
-#hdp_utils_baseurl : http://repo.{{ domain_name }}/hdp_utils/centos{{ ansible_distribution_major_version }}/HDP-UTILS-{{ hdp_utils_version }}
+hdp_baseurl: "http://public-repo-1.hortonworks.com/HDP/centos{{ ansible_distribution_major_version }}/2.x/updates/{{ hdp_version }}/"
+hdp_utils_baseurl: "http://public-repo-1.hortonworks.com/HDP-UTILS-{{ hdp_utils_version }}/repos/centos{{ ansible_distribution_major_version }}/"
 

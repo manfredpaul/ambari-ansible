@@ -1,5 +1,15 @@
 ---
 
+  - name: Delete old SSH key
+    shell: rm -rf /home/vagrant/.ssh/id_rsa*
+
+  - name: Create new SSH key
+    become: true
+    become_user: vagrant
+    shell: ssh-keygen -b 2048 -t rsa -f /home/vagrant/.ssh/id_rsa -q -N ""
+    args:
+      creates: /home/vagrant/.ssh/id_rsa
+
   - name: install ssh key
     authorized_key: user=vagrant
                     key="{{ lookup('file', '/home/vagrant/.ssh/id_rsa.pub') }}"
@@ -15,6 +25,7 @@
     template:
       src=environment.j2
       dest=/etc/environment
+    when: False
 
   - name: Generate /etc/hosts file
     template:

@@ -2,6 +2,6 @@
 
 - name: Install a Kerberos Server
   hosts: admin
-  sudo: yes
+  become: true
   roles:
     - kerberos-server
