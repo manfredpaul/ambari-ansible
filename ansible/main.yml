@@ -1,10 +1,19 @@
 ---
 
-- name: Apply common configuration to all target nodes
-  hosts: all
-  become: true
-  roles:
-    - common
+  - include: common.yml
+
+  - include: repository.yml
+
+  - include: ambari-repo.yml
+
+  - include: ambari-agent.yml
+
+  - include: ambari-server.yml
+
+  - include: kerberos-server.yml
+
+  - include: blueprint.yml
+
 
 
 

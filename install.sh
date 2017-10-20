@@ -16,4 +16,15 @@ echo " "
 
 yum install -y ansible && yum clean all
 
+echo " "
+echo "---------------------------------------------------------------------------------------------------------------"
+echo "----- run ansible"
+echo "---------------------------------------------------------------------------------------------------------------"
+echo " "
+
+cd /vagrant/ansible
+ansible-playbook main.yml --limit "mgmt,admin,repo,dn1"
+
+
+
 
