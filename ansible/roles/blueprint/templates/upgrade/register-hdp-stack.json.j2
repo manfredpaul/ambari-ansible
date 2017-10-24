@@ -1,0 +1,31 @@
+{
+  "RepositoryVersions": {
+    "display_name": "{{ stack_name }}-{{ hdp_version }}",
+    "repository_version": "{{ hdp_repository_version }}"
+  },
+  "operating_systems": [
+    {
+      "OperatingSystems": {
+        "os_type": "redhat{{ ansible_distribution_major_version }}"
+      },
+      "repositories": [
+        {
+          "Repositories": {
+            "base_url": "{{ hdp_baseurl }}",
+            "os_type": "redhat{{ ansible_distribution_major_version }}",
+            "repo_id": "{{ hdp_repo_name }}",
+            "repo_name": "{{ stack_name }}"
+          }
+        },
+        {
+          "Repositories": {
+            "base_url": "{{ hdp_utils_baseurl }}",
+            "os_type": "redhat{{ ansible_distribution_major_version }}",
+            "repo_id": "{{ hdp_utils_repo_name }}",
+            "repo_name": "HDP-UTILS"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+---
+
+  - name: Copy new stack definition
+    template: src={{ cluster_type }}/register-hdp-stack.json.j2 dest=/tmp/register-hdp-stack.json
+
+  - name: Register the stack
+    command: "curl -H \"X-Requested-By: ambari\" -u admin:admin -X POST -d '@/tmp/register-hdp-stack.json' http://{{ ambari_server }}:8080/api/v1/stacks/{{ stack_name }}/versions/{{ stack_version }}/repository_versions"
+
+  - name: Copy new stack installation
+    template: src={{ cluster_type }}/install-hdp-stack.json.j2 dest=/tmp/install-hdp-stack.json
+
+  - name: Install the stack
+    command: "curl -H \"X-Requested-By: ambari\" -u admin:admin -X POST -d '@/tmp/install-hdp-stack.json' http://{{ ambari_server }}:8080/api/v1/clusters/{{ cluster_name }}/stack_versions"

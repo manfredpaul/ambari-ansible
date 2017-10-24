@@ -2,10 +2,7 @@
 - name: Check if ambari-server is installed
   yum:
     list=ambari-server
-  register: is_installed
-
-- debug:
-    var: is_installed
+  register: pkg
 
 - name: Install ambari-server
   yum: name=ambari-server state=installed
@@ -17,11 +14,11 @@
   shell: ambari-server setup -j {{ java_home }} -s > /tmp/ambari-install-output executable=/bin/bash
   environment:
     JAVA_HOME: "{{ java_home }}"
-  when: is_installed.results|length == 1
+  when: pkg.results|selectattr("yumstate", "match", "installed")|list|length == 0
 
 - name : Check if ambari-server is installed
   wait_for : path=/tmp/ambari-install-output search_regex="completed successfully"
-  when: is_installed.results|length == 1
+  when: pkg.results|selectattr("yumstate", "match", "installed")|list|length == 0
 
 - name : Start ambari server and enabled at reboot
   service : name=ambari-server state=restarted enabled=yes

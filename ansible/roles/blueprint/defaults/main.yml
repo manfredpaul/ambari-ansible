@@ -9,16 +9,17 @@ stack_version: 2.2
 # hdp versions
 hdp_version: 2.2.9.0
 hdp_utils_version: 1.1.0.20
+hdp_repository_version: "{{ hdp_version }}"
 
 # blueprint & cluster creation
 blueprint_name: hadoop
 cluster_name: default
-cluster_type: single
+cluster_type: tiny
 
 # kerberos
 kerberos_server_realm_name: HDP.LOCAL
 kerberos_server_kadmin_pass: admin
-kerberos_server_kadmin_user: admin
+kerberos_server_kadmin_user: admin/admin
 kerberos_server: admin
 
 # hadoop configuration
@@ -29,4 +30,3 @@ hdp_utils_repo_name : "HDP-UTILS-{{ hdp_utils_version }}"
 
 hdp_baseurl: "http://public-repo-1.hortonworks.com/HDP/centos{{ ansible_distribution_major_version }}/2.x/updates/{{ hdp_version }}/"
 hdp_utils_baseurl: "http://public-repo-1.hortonworks.com/HDP-UTILS-{{ hdp_utils_version }}/repos/centos{{ ansible_distribution_major_version }}/"
-

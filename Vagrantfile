@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
     end
 
     if Vagrant.has_plugin?("vagrant-vbguest")	      
-      admin_config.vbguest.auto_update = true
+      admin_config.vbguest.auto_update = false
       admin_config.vbguest.no_remote = true
       admin_config.vbguest.no_install = false
     end
@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
     end
 
     if Vagrant.has_plugin?("vagrant-vbguest")
-      repo_config.vbguest.auto_update = true
+      repo_config.vbguest.auto_update = false
       repo_config.vbguest.no_remote = true
       repo_config.vbguest.no_install = false
     end
@@ -71,7 +71,7 @@ Vagrant.configure("2") do |config|
       end
 
       if Vagrant.has_plugin?("vagrant-vbguest")
-        nn_config.vbguest.auto_update = true
+        nn_config.vbguest.auto_update = false
         nn_config.vbguest.no_remote = true
         nn_config.vbguest.no_install = false
       end
@@ -99,7 +99,7 @@ Vagrant.configure("2") do |config|
       end
 
       if Vagrant.has_plugin?("vagrant-vbguest")
-        dn_config.vbguest.auto_update = true
+        dn_config.vbguest.auto_update = false
         dn_config.vbguest.no_remote = true
         dn_config.vbguest.no_install = false
       end

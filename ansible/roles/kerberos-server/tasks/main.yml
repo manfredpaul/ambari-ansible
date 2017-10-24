@@ -30,10 +30,13 @@
 #- name: Make sure we have the entry for hostname in /etc/hosts
 #  host: ip={{ ansible_default_ipv4.address }} hostname={{ ansible_hostname }} aliases="{{ ansible_hostname + '.' + kerberos_server_realm_name|lower() }}"
 
-- name: Start the kerberos services
+- name: Start the krb5kdc services
   service: name={{ item }} state=started enabled=yes
   with_items: krb5kdc
 
 - name: Create an admin for the administering the kerberos database
   shell: echo -e "{{ kerberos_server_kadmin_pass }}\n{{ kerberos_server_kadmin_pass }}" | kadmin.local  -q "addprinc {{ kerberos_server_kadmin_user }}/admin"; touch /var/kerberos/admin_created creates=/var/kerberos/admin_created
 
+- name: Start the kadmin services
+  service: name={{ item }} state=started enabled=yes
+  with_items: kadmin
