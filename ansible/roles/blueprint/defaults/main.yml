@@ -9,6 +9,7 @@ stack_version: 2.2
 # hdp versions
 hdp_version: 2.2.9.0
 hdp_utils_version: 1.1.0.20
+hdp_repository_name: "{{ stack_name }}-{{ hdp_version }}" 
 hdp_repository_version: "{{ hdp_version }}"
 
 # blueprint & cluster creation
