@@ -3,7 +3,6 @@
     "Clusters": {
       "desired_config": {
         "type": "krb5-conf",
-        "tag": "version1",
         "properties": {
           "domains" : "{{ kerberos_server_realm_name|lower() }}, .{{ kerberos_server_realm_name|lower() }}",
           "manage_krb5_conf" : "true",
@@ -19,7 +18,6 @@
     "Clusters": {
       "desired_config": {
         "type": "kerberos-env",
-        "tag": "version1",
         "properties": {
           "kdc_type" : "mit-kdc",
           "manage_identities": "true",
@@ -29,7 +27,7 @@
           "ldap_url" : "",
           "create_attributes_template":"\n{\n  \"objectClass\": [\"top\", \"person\", \"organizationalPerson\", \"user\"],\n  \"cn\": \"$principal_name\",\n  #if( $is_service )\n  \"servicePrincipalName\": \"$principal_name\",\n  #end\n  \"userPrincipalName\": \"$normalized_principal\",\n  \"unicodePwd\": \"$password\",\n  \"accountExpires\": \"0\",\n  \"userAccountControl\": \"66048\"\n}\n    ",
           "encryption_types":"aes des3-cbc-sha1 rc4 des-cbc-md5",
-          "executable_search_paths":"/usr/bin, /usr/kerberos/bin, /usr/sbin, /usr/lib/mit/bin, /usr/lib/mit/sbin"
+          "executable_search_paths":"/usr/bin, /usr/kerberos/bin, /usr/sbin, /usr/lib/mit/bin, /usr/lib/mit/sbin",
           "admin_server_host" : "{{ kerberos_server }}"
         }
       }

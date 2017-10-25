@@ -6,6 +6,7 @@
   - name: Apply on (no_proxy) ambari template
     shell: /tmp/no_proxy.sh
 
-  - include: blueprint.yml
+  - import_tasks: blueprint.yml
 
-  - include: kerberos.yml
+  - import_tasks: kerberos.yml
+    when: False
