@@ -1,27 +1,26 @@
 ---
-- name: Check if ambari-server is installed
-  yum:
-    list=ambari-server
-  register: pkg
-
 - name: Install ambari-server
-  yum: name=ambari-server state=installed
+  yum: name=ambari-server state=latest 
 
 - name: Ensure ambari-server is stopped
-  service: name=ambari-server state=stopped
+  shell: ambari-server stop
 
 - name: Configure ambari-server
   shell: ambari-server setup -j {{ java_home }} -s > /tmp/ambari-install-output executable=/bin/bash
   environment:
     JAVA_HOME: "{{ java_home }}"
-  when: pkg.results|selectattr("yumstate", "match", "installed")|list|length == 0
-
+ 
 - name : Check if ambari-server is installed
   wait_for : path=/tmp/ambari-install-output search_regex="completed successfully"
-  when: pkg.results|selectattr("yumstate", "match", "installed")|list|length == 0
+ 
+- name: Update ambari-server
+  shell: ambari-server upgrade -s > /tmp/ambari-upgrade-output executable=/bin/bash
+
+- name : Check if ambari-server is upgraded
+  wait_for : path=/tmp/ambari-upgrade-output search_regex="completed successfully"  
 
 - name : Start ambari server and enabled at reboot
-  service : name=ambari-server state=restarted enabled=yes
+  shell : ambari-server start
 
 - name : Check if ambari-server is up
   wait_for : host=127.0.0.1 port=8080 delay=10

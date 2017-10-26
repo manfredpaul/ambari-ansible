@@ -1,0 +1,20 @@
+---
+
+- name: Check if ambari-server is installed
+  hosts: admin
+  become: true
+  tasks: 
+    - name: Check if ambari-server is installed
+      yum:
+        list=ambari-server
+      register: is_installed
+
+    - name: Install ambari-server
+      yum: name=ambari-server state=latest update_cache=yes
+      register: installation
+
+    - name: Debug
+      debug: 
+        msg: "was_updated"
+      when: is_installed.results|selectattr("yumstate", "match", "installed")|list|length == 1 and installation.changed == 'true'
+

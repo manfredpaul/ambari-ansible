@@ -1,3 +1,6 @@
 ---
-  - name : configure local repository
-    template : src=ambari.repo.j2 dest=/etc/yum.repos.d/ambari.repo
+  - name: Configure local repository
+    template: src=ambari.repo.j2 dest=/etc/yum.repos.d/ambari.repo
+
+  - name: Clear yum cache
+    shell: yum clean all --enablerepo=ambari
