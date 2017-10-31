@@ -1,3 +1,4 @@
 ---
+
 ambari_version: 2.0.2
 ambari_baseurl: "http://public-repo-1.hortonworks.com/ambari/centos{{ ansible_distribution_major_version }}/2.x/updates/{{ ambari_version }}/"

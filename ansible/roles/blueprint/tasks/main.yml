@@ -1,12 +1,15 @@
 ---
 
-  - name: Copy no_proxy
-    copy: src=no_proxy.sh dest=/tmp/no_proxy.sh mode=0755
+- name: Copy no_proxy
+  copy: src=no_proxy.sh dest=/tmp/no_proxy.sh mode=0755
 
-  - name: Apply on (no_proxy) ambari template
-    shell: /tmp/no_proxy.sh
+- name: Apply on (no_proxy) ambari template
+  shell: /tmp/no_proxy.sh
 
-  - import_tasks: blueprint.yml
+- import_tasks: blueprint.yml
+  when: False
 
-  - import_tasks: kerberos.yml
-    when: False
+- import_tasks: kerberos.yml
+  when: False
+
+- import_tasks: upgrade.yml

@@ -8,12 +8,14 @@ declare -a files=( "/var/lib/ambari-agent/cache/custom_actions/templates/repo_su
 
 
 for i in "${files[@]}"; do
-  already_done=`cat $i | grep "proxy=_none_"`
-  echo $already_done
-  if [ "x" != "x$already_done" ]; then
-    echo "already patched"
-  else
-    echo "not yet patched. patching file $i"
-    echo "proxy=_none_" >> $i
+  if [[ -f $i ]]; then
+    already_done=`cat $i | grep "proxy=_none_"`
+    echo $already_done
+    if [ "x" != "x$already_done" ]; then
+      echo "already patched"
+    else
+      echo "not yet patched. patching file $i"
+      echo "proxy=_none_" >> $i
+    fi
   fi
 done

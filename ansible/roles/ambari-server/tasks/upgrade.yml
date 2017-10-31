@@ -1,0 +1,19 @@
+---
+
+- name: Upgrade ambari-server
+  yum: name=ambari-server state=latest
+  register: upgrade
+
+- name: Upgrade ambari-server
+  shell: ambari-server upgrade -s > /tmp/ambari-upgrade-output executable=/bin/bash
+  when: upgrade.changed
+
+- name : Check if ambari-server is upgraded
+  wait_for : path=/tmp/ambari-upgrade-output search_regex="completed successfully"
+  when: upgrade.changed
+
+- name : Start ambari server and enabled at reboot
+  shell : ambari-server start
+
+- name : Check if ambari-server is up
+  wait_for : host=127.0.0.1 port=8080 delay=10
