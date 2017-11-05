@@ -7,9 +7,10 @@
   shell: /tmp/no_proxy.sh
 
 - import_tasks: blueprint.yml
-  when: False
+  when: True
 
 - import_tasks: kerberos.yml
   when: False
 
 - import_tasks: upgrade.yml
+  when: False
