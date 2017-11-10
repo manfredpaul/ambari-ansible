@@ -36,7 +36,7 @@
   yum: name={{ item }} state=latest
   with_items:
     - ntp
-    - java-1.7.0-openjdk-devel
+    - java-1.8.0-openjdk-devel
 
 - name: Ensure ntpd is running and enabled
   service: name=ntpd state=started enabled=yes

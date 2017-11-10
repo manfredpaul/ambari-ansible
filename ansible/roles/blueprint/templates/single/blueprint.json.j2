@@ -31,13 +31,50 @@
                 }
             }
         },
-		{
-			"capacity-scheduler" : {
-				"properties" : {
-					"yarn.scheduler.capacity.root.accessible-node-labels.default.capacity" : "100",
-					"yarn.scheduler.capacity.root.accessible-node-labels.default.maximum-capacity" : "100"
-				}
-			}
+        {
+            "hbase-env": {
+                "properties": {
+                    "phoenix_sql_enabled": "true"
+                }
+            }
+        },
+        {
+            "capacity-scheduler" : {
+                "properties" : {
+                    "yarn.scheduler.capacity.root.accessible-node-labels.default.capacity" : "100",
+                    "yarn.scheduler.capacity.root.accessible-node-labels.default.maximum-capacity" : "100"
+                }
+            }
+        },
+        {
+            "kerberos-env": {
+                "properties" : {
+                    "realm" : "{{ kerberos_server_realm_name }}",
+                    "kdc_type" : "mit-kdc",
+                    "kdc_hosts" : "{{ kerberos_server }}",
+                    "ldap_url" : "",
+                    "container_dn" : "",
+                    "encryption_types" : "aes des3-cbc-sha1 rc4 des-cbc-md5",
+                    "admin_server_host" : "{{ kerberos_server }}"
+                }
+            }
+        },
+        {
+            "krb5-conf": {
+                "properties" : {
+                    "domains" : "{{ kerberos_server_realm_name|lower() }}, .{{ kerberos_server_realm_name|lower() }}",
+                    "manage_krb5_conf" : "true"
+                }
+            }
+        },        
+        {
+            "cluster-env" : { 
+                "properties" : {
+                    {% raw %}
+                    "repo_suse_rhel_template" : "[{{repo_id}}]\nname={{repo_id}}\n{% if mirror_list %}mirrorlist={{mirror_list}}{% else %}baseurl={{base_url}}{% endif %}\n\npath=/\nenabled=1\ngpgcheck=0\nproxy=_none_"
+                    {% endraw %}
+                }
+            }
         }
     ],
     "host_groups": [
@@ -46,43 +83,43 @@
             "configurations": [],
             "cardinality": "1",
             "components": [
-				{ "name" : "AMBARI_SERVER" },
+                { "name" : "AMBARI_SERVER" },
 
-				{ "name" : "ZOOKEEPER_SERVER" },
-				{ "name" : "ZOOKEEPER_CLIENT" },
+                { "name" : "ZOOKEEPER_SERVER" },
+                { "name" : "ZOOKEEPER_CLIENT" },
 
-                { "name" : "ZKFC" },
-				{ "name" : "NAMENODE" },
-				{ "name" : "DATANODE" },
-				{ "name" : "SECONDARY_NAMENODE" },
+                { "name" : "NAMENODE" },
+                { "name" : "DATANODE" },
+                { "name" : "SECONDARY_NAMENODE" },
 
-				{ "name" : "HISTORYSERVER" },
-				{ "name" : "RESOURCEMANAGER" },
-				{ "name" : "NODEMANAGER" },
-				{ "name" : "APP_TIMELINE_SERVER" },
+                { "name" : "HISTORYSERVER" },
+                { "name" : "RESOURCEMANAGER" },
+                { "name" : "NODEMANAGER" },
+                { "name" : "APP_TIMELINE_SERVER" },
 
                 { "name" : "HCAT" },
-				{ "name" : "HBASE_REGIONSERVER" },
-				{ "name" : "HBASE_CLIENT" },
-				{ "name" : "HBASE_MASTER" },
+                { "name" : "HBASE_REGIONSERVER" },
+                { "name" : "HBASE_CLIENT" },
+                { "name" : "HBASE_MASTER" },
 
-				{ "name" : "FLUME_HANDLER" },
+                { "name" : "FLUME_HANDLER" },
 
-				{ "name" : "MAPREDUCE2_CLIENT" },
+                { "name" : "MAPREDUCE2_CLIENT" },
 
-				{ "name" : "TEZ_CLIENT" },
-				{ "name" : "HDFS_CLIENT" },
-				{ "name" : "YARN_CLIENT" },
+                { "name" : "TEZ_CLIENT" },
+                { "name" : "HDFS_CLIENT" },
+                { "name" : "YARN_CLIENT" },
 
-				{ "name" : "DRPC_SERVER" },
-				{ "name" : "SUPERVISOR" },
-				{ "name" : "STORM_UI_SERVER" },
-				{ "name" : "NIMBUS" },
+                { "name" : "DRPC_SERVER" },
+                { "name" : "SUPERVISOR" },
+                { "name" : "STORM_UI_SERVER" },
+                { "name" : "NIMBUS" },
 
                 { "name" : "HIVE_CLIENT" },
                 { "name" : "HIVE_METASTORE" },
                 { "name" : "HIVE_SERVER" },
                 { "name" : "WEBHCAT_SERVER" },
+                { "name" : "MYSQL_SERVER" },
 
                 { "name" : "PIG" },
                 { "name" : "SQOOP" }
@@ -92,6 +129,9 @@
     "Blueprints": {
         "blueprint_name": "{{ blueprint_name }}",
         "stack_name": "{{ stack_name }}",
-        "stack_version": "{{ stack_version }}"
+        "stack_version": "{{ stack_version }}",
+        "security" : {
+            "type" : "KERBEROS"
+        }
     }
 }

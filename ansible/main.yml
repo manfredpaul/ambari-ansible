@@ -1,18 +1,18 @@
 ---
+  
+  - include: common.yml
 
-  - import_playbook: common.yml
+  - include: repository.yml
 
-  - import_playbook: repository.yml
+  - include: ambari-repo.yml
 
-  - import_playbook: ambari-repo.yml
+  - include: ambari-agent.yml
 
-  - import_playbook: ambari-agent.yml
+  - include: ambari-server.yml
 
-  - import_playbook: ambari-server.yml
+  - include: kerberos-server.yml
 
-  - import_playbook: kerberos-server.yml
-
-  - import_playbook: blueprint.yml
+  - include: blueprint.yml
 
 
 

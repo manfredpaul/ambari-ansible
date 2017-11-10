@@ -16,7 +16,7 @@ hdp_repository_version: "{{ hdp_full_version }}"
 # blueprint & cluster creation
 blueprint_name: hadoop
 cluster_name: default
-cluster_type: tiny
+cluster_type: single
 
 # kerberos
 kerberos_server_realm_name: HDP.LOCAL

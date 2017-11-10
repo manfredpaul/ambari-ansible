@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
     admin_config.vm.define "admin"
     admin_config.vm.network :private_network, ip: "192.168.7.111", hostsupdater: "skip"
     admin_config.vm.provider "virtualbox" do |vb|
-      vb.memory = "512"
+      vb.memory = "2048"
       vb.name = "admin"
     end
 
@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
     repo_config.vm.define "repo"
     repo_config.vm.network :private_network, ip: "192.168.7.101", hostsupdater: "skip"
     repo_config.vm.provider "virtualbox" do |vb|
-      vb.memory = "512"
+      vb.memory = "1024"
       vb.name = "repo"
     end
 
@@ -94,7 +94,7 @@ Vagrant.configure("2") do |config|
       dn_config.vm.define "dn#{i}"
       dn_config.vm.network :private_network, ip: "192.168.7.13#{i}", hostsupdater: "skip"
       dn_config.vm.provider "virtualbox" do |vb|
-        vb.memory = "4096"
+        vb.memory = "16384"
 	    vb.name = "dn#{i}"
       end
 
@@ -114,18 +114,18 @@ Vagrant.configure("2") do |config|
 
   # create mgmt node
   config.vm.define :mgmt do |mgmt_config|
-    mgmt_config.vm.box = "timveil/centos7-hdp-base"
+    mgmt_config.vm.box = "timveil/centos6.6-hdp-base"
 
     #mgmt_config.vm.hostname = "mgmt"
     mgmt_config.vm.define "mgmt"
     mgmt_config.vm.network :private_network, ip: "192.168.7.110", hostsupdater: "skip"
     mgmt_config.vm.provider "virtualbox" do |vb|
-      vb.memory = "256"
+      vb.memory = "1024"
 	  vb.name = "mgmt"
     end
 
     if Vagrant.has_plugin?("vagrant-vbguest")
-      mgmt_config.vbguest.auto_update = true
+      mgmt_config.vbguest.auto_update = false
       mgmt_config.vbguest.no_remote = true
       mgmt_config.vbguest.no_install = false
     end

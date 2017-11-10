@@ -1,6 +1,17 @@
 {
     "blueprint" : "{{ blueprint_name }}",
     "default_password" : "{{ default_password }}",
+    "credentials" : [
+        {
+            "alias" : "kdc.admin.credential",
+            "principal" : "{{ kerberos_server_kadmin_user }}",
+            "key" : "{{ kerberos_server_kadmin_pass }}",
+            "type" : "TEMPORARY"
+        }
+    ],
+    "security" : {
+        "type" : "KERBEROS"
+    },    
     "host_groups" :[
         {
             "name" : "host_group_1",

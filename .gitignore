@@ -3,3 +3,5 @@
 .idea
 .vagrant
 *.retry
+keytabs/dn.service.keytab
+*.keytab

@@ -4,9 +4,9 @@
   yum:
     list=ambari-server
   register: pkg
+  when: False
 
-- import_tasks: install.yml
-  when: pkg.results|selectattr("yumstate", "match", "installed")|list|length == 0
+- include: install.yml
 
-- import_tasks: upgrade.yml
-  when: pkg.results|selectattr("yumstate", "match", "installed")|list|length != 0
+- include: upgrade.yml
+  when: False

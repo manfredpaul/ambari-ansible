@@ -38,6 +38,15 @@
 					"yarn.scheduler.capacity.root.accessible-node-labels.default.maximum-capacity" : "100"
 				}
 			}
+        },
+        {
+            "cluster-env" : { 
+				"properties" : {
+                    {% raw %}
+					"repo_suse_rhel_template" : "[{{repo_id}}]\nname={{repo_id}}\n{% if mirror_list %}mirrorlist={{mirror_list}}{% else %}baseurl={{base_url}}{% endif %}\n\npath=/\nenabled=1\ngpgcheck=0\nproxy=_none_"
+                    {% endraw %}
+				}
+            }
         }
     ],
     "host_groups": [

@@ -1,13 +1,13 @@
 ---
 
 - name: Install Ambari repo.
-  get_url: url="{{ ambari_repo_url }}" dest=/etc/yum.repos.d/ambari.repo
-
+  get_url: url="{{ ambari_repo_url }}" dest=/etc/yum.repos.d/ambari.repo force=yes
+    
 - name: Install HDP repo.
-  get_url: url="{{ hdp_repo_url }}" dest=/etc/yum.repos.d/hdp.repo
+  get_url: url="{{ hdp_repo_url }}" dest=/etc/yum.repos.d/hdp.repo force=yes
 
 - name: Install HDP utils repo.
-  get_url: url="{{ hdp_utils_repo_url }}" dest=/etc/yum.repos.d/hdp_utils.repo
+  get_url: url="{{ hdp_utils_repo_url }}" dest=/etc/yum.repos.d/hdp_utils.repo force=yes
 
 - name: Import Ambari Repo GPG key.
   rpm_key:

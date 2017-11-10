@@ -1,32 +1,29 @@
 ---
 
 - name: Copy stack definition
-  template: src={{ cluster_type }}/blueprint.json.j2 dest=/tmp/blueprint.json
+  template: src={{ cluster_type }}/blueprint.json.j2 dest=/tmp/blueprint.json force=yes
+
+- name: Delte current stack definition
+  command: "curl -H \"X-Requested-By: ambari\" -u admin:admin -X DELETE -d '@/tmp/blueprint.json' http://{{ ambari_server }}:8080/api/v1/blueprints/{{ blueprint_name }}"
 
 - name: POST stack definition
   command: "curl -H \"X-Requested-By: ambari\" -u admin:admin -X POST -d '@/tmp/blueprint.json' http://{{ ambari_server }}:8080/api/v1/blueprints/{{ blueprint_name }}"
 
 - name: Copy HDP repo definition
-  template: src=repo/hdp-repo.json.j2 dest=/tmp/hdp-repo.json
+  template: src=repo/hdp-repo.json.j2 dest=/tmp/hdp-repo.json force=yes
 
 - name: PUT HDP repo definition
   command: "curl -H \"X-Requested-By: ambari\" -u admin:admin -X PUT -d '@/tmp/hdp-repo.json'  http://{{ ambari_server }}:8080/api/v1/stacks/{{ stack_name }}/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{hdp_repo_name }}"
 
 - name: Copy HDP Utils definition
-  template: src=repo/hdp-utils-repo.json.j2 dest=/tmp/hdp-utils-repo.json
+  template: src=repo/hdp-utils-repo.json.j2 dest=/tmp/hdp-utils-repo.json force=yes
 
 - name: PUT HDP Utils repo definition
   command: "curl -H \"X-Requested-By: ambari\" -u admin:admin -X PUT -d '@/tmp/hdp-utils-repo.json'  http://{{ ambari_server }}:8080/api/v1/stacks/{{ stack_name }}/versions/{{ stack_version }}/operating_systems/redhat{{ ansible_distribution_major_version }}/repositories/{{ hdp_utils_repo_name }}"
 
 - name: Copy cluster definition
-  template: src={{ cluster_type }}/cluster.json.j2 dest=/tmp/cluster.json
+  template: src={{ cluster_type }}/cluster.json.j2 dest=/tmp/cluster.json force=yes
 
 - name: POST cluster definition
   command: "curl -H \"X-Requested-By: ambari\" -u admin:admin -X POST -d '@/tmp/cluster.json' http://{{ ambari_server }}:8080/api/v1/clusters/{{ cluster_name }}"
 
-- name: Check progress
-  command: "curl -H \"X-Requested-By: ambari\" -u admin:admin -X GET http://{{ ambari_server }}:8080/api/v1/clusters/{{ cluster_name }}/requests/1?fields=Requests/progress_percent"
-  register: result
-  until: result.stdout | regex_search('\"progress_percent\"\\s+:\\s+(100.0)')
-  retries: 100
-  delay: 10

@@ -23,7 +23,7 @@
 
 - name: Upgrade the stack
   command: "curl -H \"X-Requested-By: ambari\" -u admin:admin -X POST -d '@/tmp/upgrade-hdp-stack.json' http://{{ ambari_server }}:8080/api/v1/clusters/{{ cluster_name }}/upgrades"
-  when: True
+  when: False
 
-  # wait until finished with HOLDING task to complete 
+  # wait until finished with HOLDING task to complete
 
